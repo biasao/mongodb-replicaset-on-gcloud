@@ -76,7 +76,3 @@ connecting to: mongodb://127.0.0.1:27017
 MongoDB server version: 3.4.9
 { "_id" : ObjectId("59d6c4adc37e28e1c76c5b2d"), "key1" : "value1" }
 ```
-
-## Create a db
- 1 - connect to a node: `kubectl exec -it my-release-mongodb-replicaset-0 /bin/bash`
-db.towns.insert({​   name: ​"New York"​,​   population: 22200000,​   last_census: ISODate(​"2009-07-31"​),​   famous_for: [ ​"statue of liberty"​, ​"food"​ ],​   mayor : {​     name : ​"Michael Bloomberg"​,​     party : ​"I"​​   }​ })
