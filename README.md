@@ -2,7 +2,7 @@
 
 ## Create kubernetes cluster in the cloud provider
 - In Google Cloud Platform:
-	- Container Engine -> Container Cluster -> Create Kubernets cluster;
+	- Container Engine -> Container Cluster -> Create Kubernetes cluster;
 	- Using default config in this example: 3 nodes with 1 vCPU and 3.75 GB memory each;
 
 ### Install `gcloud`
