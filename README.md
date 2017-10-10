@@ -69,10 +69,84 @@ MongoDB server version: 3.4.9
 ```
 
 # Test read data from any node in Mongo
-`kubectl exec --namespace default my-release-mongodb-replicaset-0 -- mongo --eval="rs.slaveOk(); db.test.find().forEach(printjson)"`
+`kubectl exec --namespace default my-release-mongodb-replicaset-1 -- mongo --eval="rs.slaveOk(); db.test.find().forEach(printjson)"`
 ```
 MongoDB shell version v3.4.9
 connecting to: mongodb://127.0.0.1:27017
 MongoDB server version: 3.4.9
 { "_id" : ObjectId("59d6c4adc37e28e1c76c5b2d"), "key1" : "value1" }
+```
+
+# Checking MongoDB version
+```
+$ kubectl exec -it historical-walrus-mongodb-replicaset-0 bash
+root@historical-walrus-mongodb-replicaset-0:/# mongo -version
+MongoDB shell version v3.4.9
+git version: 876ebee8c7dd0e2d992f36a848ff4dc50ee6603e
+OpenSSL version: OpenSSL 1.0.1t  3 May 2016
+allocator: tcmalloc
+modules: none
+build environment:
+    distmod: debian81
+    distarch: x86_64
+    target_arch: x86_64
+```
+
+
+# Performing MongoDB backup and restore using `mongodump` and `mongorestore`
+- reference: https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
+- create a `ConfigMap` for the `backup.sh`:
+`kubectl create cm --from-file scripts/backup.sh backup-config`
+
+- associate the `backup-config` to the `Service`:
+`kubectl edit statefulset my-release-mongodb-replicaset`
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  creationTimestamp: 2017-10-09T23:55:58Z
+  labels:
+    app: mongodb-replicaset
+    chart: mongodb-replicaset-1.4.1
+    heritage: Tiller
+    release: historical-walrus
+  name: historical-walrus-mongodb-replicaset
+  namespace: default
+  resourceVersion: "1018"
+  selfLink: /api/v1/namespaces/default/services/historical-walrus-mongodb-replicaset
+  uid: 65706b5b-ad4d-11e7-9f00-42010a800fe5
+spec:
+  clusterIP: None
+  ports:
+  - name: peer
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: mongodb-replicaset
+    release: historical-walrus
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+```
+
+- Add the following snippet to the `yaml` above:
+	- add to all `volumeMounts` blocks:
+```
+	volumeMounts:
+	- mountPath: /backups
+    name: mongodump-backup
+```
+	- add to the `volumes` block:
+```
+volumes:
+	- configMap:
+			defaultMode: 420
+			name: mongodump-backup
+		name: mongodump-backup
+
 ```

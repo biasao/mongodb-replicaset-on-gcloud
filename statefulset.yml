@@ -1,0 +1,30 @@
+[?1049h[?1h=[1;43r[?12;25h[?12l[?25h[27m[23m[m[H[2J[?25l[43;1H"/tmp/kubectl-edit-fplln.yaml" 164 lines, 6535 characters[1;1H# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  creationTimestamp: 2017-10-09T23:55:58Z
+  generation: 1
+  labels:
+    app: mongodb-replicaset
+    chart: mongodb-replicaset-1.4.1
+    heritage: Tiller
+    release: historical-walrus
+  name: historical-walrus-mongodb-replicaset
+  namespace: default
+  resourceVersion: "1262"
+  selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/historical-walrus-mongodb-replicaset
+  uid: 657183cb-ad4d-11e7-9f00-42010a800fe5
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:[26;7Happ: mongodb-replicaset[27;7Hrelease: historical-walrus
+  serviceName: historical-walrus-mongodb-replicaset
+  template:
+    metadata:[31;7Hannotations:[32;9Hpod.alpha.kubernetes.io/init-containers: '[{"name":"install","image":"gcr.io/google_containers/mongodb-install:0.4","args":["--work-dir==[33;1H/work-dir"],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"}],"terminationMessaa[34;1HgePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"},{"name":"bootstrap","image":"mongo:3.4","commm[35;1Hand":["/work-dir/peer-finder"],"args":["-on-start=/work-dir/on-start.sh","-service=historical-walrus-mongodb-replicaset"],"env":[{"name":"POD_NAA[36;1HMESPACE","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.namespace"}}},{"name":"REPLICA_SET","value":"rs0"}],"resources":{},"voo[37;1HlumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"},{"name":"datadir","mountPath":"/data/db"}],"termm[38;1HinationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"}]'[39;9Hpod.beta.kubernetes.io/init-containers: '[{"name":"install","image":"gcr.io/google_containers/mongodb-install:0.4","args":["--work-dir=//[40;1Hwork-dir"],"resources":{},"volumeMounts":[{"name":"workdir","mountPath":"/work-dir"},{"name":"config","mountPath":"/config"}],"terminationMessagg[41;1HePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"IfNotPresent"},{"name":"bootstrap","image":"mongo:3.4","commaa[42;1Hnd":["/work-dir/peer-finder"],"args":["-on-start=/work-dir/on-start.sh","-service=historical-walrus-mongodb-replicaset"],"env":[{"name":"POD_NAM[39;1H[94m@                                                                                                                                               [40;1H@                                                                                                                                               [41;1H@                                                                                                                                               [42;1H@                                                                                                                                               [1;1H[?12l[?25h[?25l[m[43;1HType  :quit<Enter>  to exit Vim[43;32H[K[1;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[43;1H[?1l>[?1049lVim: Error reading input, exiting...
+Vim: Finished.
+[43;1H
